@@ -1,0 +1,41 @@
+### Editar Versão de MiniApp
+POST {{host}}/v1/miniapp/versao/editar
+Content-Type: application/json
+
+{
+  "coVersaoMiniapp": "123e4567-e89b-12d3-a456-426614174000",
+  "coMiniapp": "456e7890-e89b-12d3-a456-426614174001",
+  "nuVersaoMiniapp": 2.5,
+  "pcExpansaoMiniapp": 15.0,
+  "edVersaoMiniapp": "https://releases.example.com/miniapp/v2.5",
+  "icAtivo": true
+}
+
+### Editar Versão de MiniApp - Apenas campos opcionais
+POST {{host}}/v1/miniapp/versao/editar
+Content-Type: application/json
+
+{
+  "coVersaoMiniapp": "123e4567-e89b-12d3-a456-426614174000",
+  "coMiniapp": "456e7890-e89b-12d3-a456-426614174001",
+  "icAtivo": false
+}
+
+### Editar Versão de MiniApp - Dados inválidos (deve retornar 400)
+POST {{host}}/v1/miniapp/versao/editar
+Content-Type: application/json
+
+{
+  "coMiniapp": "456e7890-e89b-12d3-a456-426614174001",
+  "icAtivo": true
+}
+
+### Editar Versão de MiniApp - Não encontrada (deve retornar 404)
+POST {{host}}/v1/miniapp/versao/editar
+Content-Type: application/json
+
+{
+  "coVersaoMiniapp": "00000000-0000-0000-0000-000000000000",
+  "coMiniapp": "00000000-0000-0000-0000-000000000000",
+  "icAtivo": true
+}

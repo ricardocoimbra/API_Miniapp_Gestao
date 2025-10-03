@@ -1,0 +1,38 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "#{LoggingLogLevelDefault}#",
+      "Microsoft.AspNetCore": "#{LoggingLogLevelMicrosoft.AspNetCore}#",
+      "API_Miniapp_Gestao": "Debug",
+      "LIB_Auditoria": "#{LoggingLogLevelLIB_Auditoria}#"
+    }
+  },
+  "ApplicationInsights": {
+    "LogLevel": {
+      "Default": "#{LoggingApplicationInsightsLogLevelDefault}#",
+      "Microsoft.AspNetCore": "#{LoggingApplicationInsightsLogLevelMicrosoft.AspNetCore}#",
+      "Microsoft.Hosting.Lifetime": "#{LoggingApplicationInsightsLogLevelMicrosoft.Hosting.Lifetime}#"
+    }
+  },
+  "Console": {
+    "IncludeScopes": "#{LoggingConsoleIncludeScopes}#"
+  },
+  "UrlKeyVault": "#{UrlKeyVault}#",
+  "Auditoria": {
+    "EhTrilhaAuditoriaSender": "#{AuditoriaEhTrilhaAuditoriaSender}#",
+    "EventHubName": "#{AuditoriaEventHubName}#",
+    "NomeAplicacao": "#{AuditoriaNomeAplicacao}#"
+  },
+  "ConnectionStrings": {
+    "ConnectionStringDbSuperAppLeitura": "#{ConnectionStringDbSuperAppLeitura}#",
+    "ConnectionStringDbSuperAppEscrita": "#{ConnectionStringDbSuperAppEscrita}#"
+  },
+  "TimeoutConfig": {
+    "TimeoutPadraoMilissegundos": "#{TimeoutConfigTimeoutPadraoMilissegundos}#"
+  },
+  "CacheConfig": {
+    "TTLPredecessao": "#{CacheConfigTTLPredecessao}#",
+    "TTLPadrao": "#{CacheConfigTTLPadrao}#"
+  },
+  "AllowedHosts": "#{AllowedHosts}#"
+}

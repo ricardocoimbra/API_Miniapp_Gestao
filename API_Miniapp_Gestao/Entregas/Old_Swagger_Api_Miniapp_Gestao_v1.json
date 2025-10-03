@@ -1,0 +1,420 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API-Miniapp-Gestão",
+    "version": "V1",
+    "description": "API do serviço de Gestão de Miniapps."
+  },
+  "paths": {
+    "/miniapp-gestao/v1/listar": {
+      "post": {
+        "tags": ["Miniapp"],
+        "consumes": ["application/json", "text/json", "application/*+json"],
+        "produces": ["application/json"],
+        "summary": "Listar Miniapps",
+        "description": "Quando \"coMiniapp\" é informado, retorna o Miniapp, no contrário, lista todos os miniapps ativos. (NBMTB004_MINIAPP)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/EntradaMiniappDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Miniapps listados com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RetornoMiniappDto"
+              }
+            }
+          },
+          "404": {
+            "description": "Mini App não encontrado"
+          },
+          "500": {
+            "description": "Erro ao consultar a lista de Miniapps"
+          }
+        }
+      }
+    },
+    "/miniapp-gestao/v1/criar": {
+      "post": {
+        "tags": ["Miniapp"],
+        "consumes": ["application/json", "text/json", "application/*+json"],
+        "produces": ["application/json"],
+        "summary": "Criar Miniapp",
+        "description": "Endpoint para o cadastro de um novo Miniapp com os dados fornecidos no corpo da requisição. (NBMTB004_MINIAPP)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CriarMiniappDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Miniapp criado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/MiniAppDto"
+            }
+          },
+          "400": {
+            "description": "Dados fornecidos incompletos ou inválidos"
+          },
+          "500": {
+            "description": "Erro ao criar o miniapp"
+          }
+        }
+      }
+    },
+    "/miniapp-gestao/v1/relacionamento/criar": {
+      "post": {
+        "tags": ["Relacionamento-Miniapp"],
+        "consumes": ["application/json", "text/json", "application/*+json"],
+        "summary": "Criar relacionamento entre Miniapps (pai e filhos)",
+        "description": "Endpoint para incluir relacionamento entre Miniapps, pais e filhos. (NBMTB005_RELACIONAMENTO_MINIAPP)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/IncluirRelacionamentoMiniappDto"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Relacionamento entre miniapps criado com sucesso"
+          },
+          "400": {
+            "description": "Dados de entrada incompletos ou inválidos"
+          },
+          "500": {
+            "description": "Erro salvar o relacionamento entre miniapps"
+          }
+        }
+      }
+    },
+    "/miniapp-gestao/v1/relacionamento/listar": {
+      "post": {
+        "tags": ["Relacionamento-Miniapp"],
+        "consumes": ["application/json", "text/json", "application/*+json"],
+        "produces": ["application/json"],
+        "summary": "Listar os relacionamentos de um dado Miniapp",
+        "description": "Endpoint para listar os relacionamentos de um dado Miniapp conforme relação escolhida, pais, filhos ou ambos (se não for informado). (NBMTB005_RELACIONAMENTO_MINIAPP)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/EntradaRelacionamentosDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relacionamentos dos Miniapps listados com sucesso",
+            "schema": {
+              "$ref": "#/definitions/ListaRelacionamentosDto"
+            }
+          },
+          "404": {
+            "description": "Mini App não encontrado"
+          },
+          "500": {
+            "description": "Erro ao consultar os relacionamentos do Miniapp"
+          }
+        }
+      }
+    },
+    "/miniapp-gestao/v1/versao/criar": {
+      "post": {
+        "tags": ["Versao-Miniapp"],
+        "consumes": ["application/json", "text/json", "application/*+json"],
+        "produces": ["application/json"],
+        "summary": "Criar Versão",
+        "description": "Endpoint para cadastrar uma nova versão do Miniapp. (NBMTB006_VERSAO_MINIAPP)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/EntradaCriarVersaoMiniappDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Versão do miniapp criada com sucesso",
+            "schema": {
+              "$ref": "#/definitions/RetornoCriarVersaoMiniappDto"
+            }
+          },
+          "400": {
+            "description": "Dados de entrada incompletos ou inválidos"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/miniapp-gestao/v1/versao/listar": {
+      "post": {
+        "tags": ["Versao-Miniapp"],
+        "consumes": ["application/json", "text/json", "application/*+json"],
+        "produces": ["application/json"],
+        "summary": "Listar Versões do Miniapp",
+        "description": "Endpoint para listar todas as versões de um dado Miniapp. (NBMTB006_VERSAO_MINIAPP)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/EntradaMiniappDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Versões do Miniapp listadas com sucesso",
+            "schema": {
+              "$ref": "#/definitions/RetornoListarVersoesDto"
+            }
+          },
+          "404": {
+            "description": "Mini App não encontrado"
+          },
+          "500": {
+            "description": "Erro ao consultar as versões do Miniapp"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CriarMiniappDto": {
+      "type": "object",
+      "properties": {
+        "noMiniapp": {
+          "type": "string"
+        },
+        "noApelidoMiniapp": {
+          "type": "string"
+        },
+        "edMiniapp": {
+          "type": "string"
+        },
+        "deMiniapp": {
+          "type": "string"
+        },
+        "icMiniappInicial": {
+          "type": "boolean"
+        },
+        "icAtivo": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EntradaCriarVersaoMiniappDto": {
+      "type": "object",
+      "properties": {
+        "coMiniapp": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "nuVersao": {
+          "format": "double",
+          "type": "number"
+        },
+        "pcExpansao": {
+          "format": "double",
+          "type": "number"
+        },
+        "icAtivo": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EntradaMiniappDto": {
+      "type": "object",
+      "properties": {
+        "co-miniapp": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "EntradaRelacionamentosDto": {
+      "type": "object",
+      "properties": {
+        "relacao": {
+          "type": "string"
+        },
+        "coMiniapp": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "IncluirRelacionamentoMiniappDto": {
+      "type": "object",
+      "properties": {
+        "coRelacionamentoMiniapp": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "coMiniappPai": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "coMiniappFilho": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ListaRelacionamentosDto": {
+      "type": "object",
+      "properties": {
+        "pais": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetornoRelacionamentosDto"
+          }
+        },
+        "filhos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetornoRelacionamentosDto"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "MiniAppDto": {
+      "type": "object",
+      "properties": {
+        "coMiniapp": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "noMiniapp": {
+          "type": "string"
+        },
+        "noApelidoMiniapp": {
+          "type": "string"
+        },
+        "edMiniapp": {
+          "type": "string"
+        },
+        "deMiniapp": {
+          "type": "string"
+        },
+        "icMiniappInicial": {
+          "type": "boolean"
+        },
+        "icAtivo": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "RetornoCriarVersaoMiniappDto": {
+      "type": "object",
+      "properties": {
+        "coVersao": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "coMiniapp": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "nuVersao": {
+          "format": "double",
+          "type": "number"
+        },
+        "pcExpansao": {
+          "format": "double",
+          "type": "number"
+        },
+        "icAtivo": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "RetornoListarVersoesDto": {
+      "type": "object",
+      "properties": {
+        "retornoListaVersoes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RetornoCriarVersaoMiniappDto"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "RetornoMiniappDto": {
+      "type": "object",
+      "properties": {
+        "miniapp": {
+          "$ref": "#/definitions/MiniAppDto"
+        },
+        "versoesMiniapp": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VersaoMiniappDto"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "RetornoRelacionamentosDto": {
+      "type": "object",
+      "properties": {
+        "coMiniapp": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "noMiniapp": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "VersaoMiniappDto": {
+      "type": "object",
+      "properties": {
+        "coVersao": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "nuVersao": {
+          "format": "double",
+          "type": "number"
+        },
+        "pcExpansao": {
+          "format": "double",
+          "type": "number"
+        },
+        "icAtivo": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,52 @@
+trigger: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: Templates_CI_CD
+      ref: refs/heads/guardrail-sonar
+
+parameters:
+  - name: serviceVersion
+    displayName: 'Versão do Serviço'
+    type: string
+    default: '0.0.1'
+
+variables:
+  - group: VG_SERVICES_SHARED
+  - name: BUILD_VERSION
+    value: '${{ parameters.serviceVersion }}'
+  - name: INCREMENT_VERSION
+    value: $[counter(variables['BUILD_VERSION'], 1)]
+  - name: FINAL_VERSION
+    value: '${{ parameters.serviceVersion }}.$(INCREMENT_VERSION)'
+
+extends:
+  template: solutions/dotnet-azure-solution.yaml@templates
+  parameters:
+    buildPoolName: 'ads-mobilidade-dev'
+    scanPoolName: 'ads-mobilidade-dev'
+    serviceVersion: '${{ parameters.serviceVersion }}'
+    ambientes:
+      - nome: 'des'
+        deployPoolName: 'ads-mobilidade-dev'
+        variableGroup: 'VG_SERVICES_GLOBAL_DES'
+        variableGroupInfra: 'VG_SERVICES_INFRA_DES'
+        variableGroupService: 'VG_SERVICE_MINIAPP_GESTAO_DES'
+        azureServiceConnection: 'sc-mobilidade-dev-ComunidadeCanaisMobile'
+      # - nome: 'qa'
+      #   deployPoolName: 'ads-sinbm-qa'
+      #   variableGroup: 'VG_SERVICES_QA'
+      #   variableGroupInfra: 'VG_SERVICES_INFRA_QA'
+      #   azureServiceConnection: 'sc-sinbm-plt'
+      # - nome: 'tqs'
+      #   deployPoolName: 'ads-sinbm-tqs'
+      #   variableGroup: 'VG_SERVICES_TQS'
+      #   variableGroupInfra: 'VG_SERVICES_INFRA_TQS'
+      #   azureServiceConnection: 'sc-sinbm-plt'
+      # - nome: 'prd'
+      #   deployPoolName: 'ads-sinbm-prd'
+      #   variableGroup: 'VG_SERVICES_PRD'
+      #   variableGroupInfra: 'VG_SERVICES_INFRA_PRD'
+      #   azureServiceConnection: 'sc-sinbm-prd'

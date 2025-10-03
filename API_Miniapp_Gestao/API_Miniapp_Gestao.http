@@ -1,0 +1,144 @@
+@API_Miniapp_Gestao_HostAddress = http://localhost:5213
+
+### ============================================
+### VERSÃO SISTEMA OPERACIONAL - TESTES
+### ============================================
+
+### LISTAR - Todos os registros (sem filtros)
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/listar
+Content-Type: application/json
+
+{}
+
+###
+
+### LISTAR - Filtrar por plataforma Android
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/listar
+Content-Type: application/json
+
+{
+  "coPlataforma": "A"
+}
+
+###
+
+### LISTAR - Filtrar por plataforma iOS
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/listar
+Content-Type: application/json
+
+{
+  "coPlataforma": "I"
+}
+
+###
+
+### LISTAR - Filtrar por versão do Sistema Operacional
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/listar
+Content-Type: application/json
+
+{
+  "nuVersaoSistemaOperacional": 14.5
+}
+
+###
+
+### LISTAR - Filtrar por versão do SDK
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/listar
+Content-Type: application/json
+
+{
+  "nuVersaoSdk": 16.4
+}
+
+###
+
+### CRIAR - Nova versão Android (201 Created)
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/criar
+Content-Type: application/json
+
+{
+  "coPlataforma": "A",
+  "nuVersaoSistemaOperacional": 14.5,
+  "nuVersaoSdk": 16.4
+}
+
+###
+
+### CRIAR - Nova versão iOS (201 Created)
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/criar
+Content-Type: application/json
+
+{
+  "coPlataforma": "I",
+  "nuVersaoSistemaOperacional": 17.2,
+  "nuVersaoSdk": 18.1
+}
+
+###
+
+### TESTE DE ERRO - Criar sem coPlataforma (deve retornar erro no formato ValidationErrorDto)
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/criar
+Content-Type: application/json
+
+{
+  "nuVersaoSistemaOperacional": 14.5,
+  "nuVersaoSdk": 16.4
+}
+
+###
+
+### EDITAR - Atualizar versão existente (200 OK)
+### Substitua o GUID pelo ID real de um registro existente
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/editar
+Content-Type: application/json
+
+{
+  "coVersaoSistemaOperacional": "123e4567-e89b-12d3-a456-426614174000",
+  "coPlataforma": "A",
+  "nuVersaoSistemaOperacional": 15.0,
+  "nuVersaoSdk": 17.0
+}
+
+###
+
+### EXCLUIR - Deletar versão existente (200 OK)
+### Substitua o GUID pelo ID real de um registro existente
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/excluir
+Content-Type: application/json
+
+{
+  "coVersaoSistemaOperacional": "123e4567-e89b-12d3-a456-426614174000"
+}
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/criar
+Content-Type: application/json
+
+{
+  "coPlataforma": "I",
+  "nuVersaoSistemaOperacional": 15.2,
+  "nuVersaoSdk": 17.1
+}
+
+###
+
+# Deletar versão do sistema operacional (substitua pelo ID real após criar)
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/excluir
+Content-Type: application/json
+
+{
+  "coVersaoSistemaOperacional": "00000000-0000-0000-0000-000000000000"
+}
+
+###
+
+# Editar versão do sistema operacional (substitua pelo ID real)
+POST {{API_Miniapp_Gestao_HostAddress}}/miniapp-gestao/v1/sistema-operacional/editar
+Content-Type: application/json
+
+{
+  "coVersaoSistemaOperacional": "635c8013-3174-4e83-817a-9e1ffb36de9e",
+  "coPlataforma": "A",
+  "nuVersaoSistemaOperacional": 13.1,
+  "nuVersaoSdk": 15.5
+}
+
+###
